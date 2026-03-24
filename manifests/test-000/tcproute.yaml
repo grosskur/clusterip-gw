@@ -1,0 +1,31 @@
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TCPRoute
+metadata:
+  name: server-80
+  namespace: test-000
+spec:
+  parentRefs:
+  - name: server
+    sectionName: tcp-80
+  rules:
+  - backendRefs:
+    - group: gateway.networking.x-k8s.io
+      kind: XEndpointSelector
+      name: server
+      port: 8080
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TCPRoute
+metadata:
+  name: server-81
+  namespace: test-000
+spec:
+  parentRefs:
+  - name: server
+    sectionName: tcp-81
+  rules:
+  - backendRefs:
+    - group: gateway.networking.x-k8s.io
+      kind: XEndpointSelector
+      name: server
+      port: 8181

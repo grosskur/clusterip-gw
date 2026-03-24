@@ -1,0 +1,22 @@
+FROM golang:1.26.1 AS builder
+
+WORKDIR /src
+
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY cmd/clusterip-gw-controller ./cmd/clusterip-gw-controller
+COPY apis ./apis
+COPY internal/apputil ./internal/apputil
+COPY internal/controller ./internal/controller
+COPY internal/gatewaymeta ./internal/gatewaymeta
+COPY internal/kube ./internal/kube
+
+RUN CGO_ENABLED=0 GOOS=linux \
+    go build -trimpath -ldflags="-s -w" -o /out/clusterip-gw-controller ./cmd/clusterip-gw-controller
+
+FROM gcr.io/distroless/static-debian13@sha256:47b2d72ff90843eb8a768b5c2f89b40741843b639d065b9b937b07cd59b479c6
+
+COPY --from=builder /out/clusterip-gw-controller /clusterip-gw-controller
+
+ENTRYPOINT ["/clusterip-gw-controller"]

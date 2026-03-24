@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: clusterip-gw-coredns
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: clusterip-gw-coredns
+subjects:
+- kind: ServiceAccount
+  name: clusterip-gw-coredns
+  namespace: kube-system

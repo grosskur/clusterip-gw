@@ -1,0 +1,58 @@
+#!/usr/bin/env dotslash
+
+{
+  "name": "kind",
+  "platforms": {
+    "macos-aarch64": {
+      "size": 10538994,
+      "hash": "blake3",
+      "digest": "067dde699217cd5deb7d14ab0529cd1403e052ae80a53a4af957aae5121130a0",
+      "path": "kind-darwin-arm64",
+      "providers": [
+        {
+          "url": "https://github.com/kubernetes-sigs/kind/releases/download/v0.31.0/kind-darwin-arm64"
+        },
+        {
+          "type": "github-release",
+          "repo": "https://github.com/kubernetes-sigs/kind",
+          "tag": "v0.31.0",
+          "name": "kind-darwin-arm64"
+        }
+      ]
+    },
+    "linux-aarch64": {
+      "size": 10458020,
+      "hash": "blake3",
+      "digest": "d7b7514a9bf33500283d6f7c1d298ece951e455cba343587d21bb15ac801803d",
+      "path": "kind-linux-arm64",
+      "providers": [
+        {
+          "url": "https://github.com/kubernetes-sigs/kind/releases/download/v0.31.0/kind-linux-arm64"
+        },
+        {
+          "type": "github-release",
+          "repo": "https://github.com/kubernetes-sigs/kind",
+          "tag": "v0.31.0",
+          "name": "kind-linux-arm64"
+        }
+      ]
+    },
+    "linux-x86_64": {
+      "size": 11097044,
+      "hash": "blake3",
+      "digest": "1db74c99f42e0b65494a3bde06b9eb77d587cf5283e2c278801677134ec1561a",
+      "path": "kind-linux-amd64",
+      "providers": [
+        {
+          "url": "https://github.com/kubernetes-sigs/kind/releases/download/v0.31.0/kind-linux-amd64"
+        },
+        {
+          "type": "github-release",
+          "repo": "https://github.com/kubernetes-sigs/kind",
+          "tag": "v0.31.0",
+          "name": "kind-linux-amd64"
+        }
+      ]
+    }
+  }
+}

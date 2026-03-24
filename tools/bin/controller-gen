@@ -1,0 +1,58 @@
+#!/usr/bin/env dotslash
+
+{
+  "name": "controller-gen",
+  "platforms": {
+    "macos-aarch64": {
+      "size": 33139986,
+      "hash": "blake3",
+      "digest": "b11219386d459b956a2cb03554780b5aa5da7361b071564d0ccbe0e4460c0159",
+      "path": "controller-gen-darwin-arm64",
+      "providers": [
+        {
+          "url": "https://github.com/kubernetes-sigs/controller-tools/releases/download/v0.20.1/controller-gen-darwin-arm64"
+        },
+        {
+          "type": "github-release",
+          "repo": "https://github.com/kubernetes-sigs/controller-tools",
+          "tag": "v0.20.1",
+          "name": "controller-gen-darwin-arm64"
+        }
+      ]
+    },
+    "linux-aarch64": {
+      "size": 31855313,
+      "hash": "blake3",
+      "digest": "0faaee5c0ec37b020cfacebe842ac5cefeb373fba8e67cfc242a76f114320840",
+      "path": "controller-gen-linux-arm64",
+      "providers": [
+        {
+          "url": "https://github.com/kubernetes-sigs/controller-tools/releases/download/v0.20.1/controller-gen-linux-arm64"
+        },
+        {
+          "type": "github-release",
+          "repo": "https://github.com/kubernetes-sigs/controller-tools",
+          "tag": "v0.20.1",
+          "name": "controller-gen-linux-arm64"
+        }
+      ]
+    },
+    "linux-x86_64": {
+      "size": 34029948,
+      "hash": "blake3",
+      "digest": "25141b73fc3ddd03a27f2a67be2b0a59f95c50b16546075b34a008d46ceade5e",
+      "path": "controller-gen-linux-amd64",
+      "providers": [
+        {
+          "url": "https://github.com/kubernetes-sigs/controller-tools/releases/download/v0.20.1/controller-gen-linux-amd64"
+        },
+        {
+          "type": "github-release",
+          "repo": "https://github.com/kubernetes-sigs/controller-tools",
+          "tag": "v0.20.1",
+          "name": "controller-gen-linux-amd64"
+        }
+      ]
+    }
+  }
+}

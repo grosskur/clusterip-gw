@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client
+  namespace: test-000
+  labels:
+    app: client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      nodeSelector:
+        kubernetes.io/os: linux
+      containers:
+      - name: client
+        image: nginx:1.29.6
+        imagePullPolicy: IfNotPresent

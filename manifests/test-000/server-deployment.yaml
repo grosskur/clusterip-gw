@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server
+  namespace: test-000
+  labels:
+    app: server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: server
+  template:
+    metadata:
+      labels:
+        app: server
+      annotations:
+        test-000.clusterip-gw/nginx-config: |
+          server {
+            listen 8080;
+            listen 8181;
+            server_name _;
+            default_type text/plain;
+
+            location / {
+              return 200 "Hello from $hostname\n";
+            }
+          }
+    spec:
+      nodeSelector:
+        kubernetes.io/os: linux
+      volumes:
+      - name: nginx-config
+        downwardAPI:
+          items:
+          - path: default.conf
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.annotations['test-000.clusterip-gw/nginx-config']
+      containers:
+      - name: server
+        image: nginx:1.29.6
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/conf.d/default.conf
+          subPath: default.conf
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        - containerPort: 8181
+          protocol: TCP

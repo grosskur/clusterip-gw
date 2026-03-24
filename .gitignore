@@ -1,0 +1,24 @@
+# Go build outputs
+/clusterip-gw-*
+/bin/
+/dist/
+/build/
+/out/
+*.test
+
+# Coverage and profiling artifacts
+*.coverprofile
+coverage.out
+cpu.out
+mem.out
+
+# Local config and scratch files
+*.local.yaml
+*.local.yml
+*.tmp
+/.tmp/
+
+# Editor and OS noise
+.DS_Store
+.idea/
+.vscode/

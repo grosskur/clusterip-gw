@@ -1,0 +1,30 @@
+ARG COREDNS_VERSION=v1.14.2
+
+FROM golang:1.26.1 AS builder
+
+ARG COREDNS_VERSION
+
+WORKDIR /workspace
+RUN git clone --branch "${COREDNS_VERSION}" --depth 1 https://github.com/coredns/coredns.git coredns
+WORKDIR /workspace/coredns
+RUN go mod download
+
+WORKDIR /workspace/clusterip-gw
+COPY go.mod go.sum ./
+COPY plugin/k8s_clusterip_gw ./plugin/k8s_clusterip_gw
+
+WORKDIR /workspace/coredns
+RUN go mod edit -replace=github.com/grosskur/clusterip-gw=/workspace/clusterip-gw
+RUN awk 'BEGIN { added = 0 } \
+	/^kubernetes:kubernetes$/ && !added { print "k8s_clusterip_gw:github.com/grosskur/clusterip-gw/plugin/k8s_clusterip_gw"; added = 1 } \
+	{ print } \
+	END { if (!added) exit 1 }' plugin.cfg > plugin.cfg.new && mv plugin.cfg.new plugin.cfg
+RUN go generate coredns.go
+RUN go get github.com/grosskur/clusterip-gw/plugin/k8s_clusterip_gw
+RUN CGO_ENABLED=0 GOOS=linux go build -trimpath -tags="grpcnotrace" -ldflags="-s -w -X github.com/coredns/coredns/coremain.GitCommit=${COREDNS_VERSION}" -o /out/coredns .
+
+ARG COREDNS_VERSION
+
+FROM registry.k8s.io/coredns/coredns:${COREDNS_VERSION}
+
+COPY --from=builder /out/coredns /coredns

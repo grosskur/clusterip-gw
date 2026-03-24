@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clusterip-gw-controller
+  namespace: kube-system
+  labels:
+    app: clusterip-gw-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clusterip-gw-controller
+  template:
+    metadata:
+      labels:
+        app: clusterip-gw-controller
+    spec:
+      priorityClassName: system-cluster-critical
+      serviceAccountName: clusterip-gw-controller
+      nodeSelector:
+        kubernetes.io/os: linux
+      containers:
+      - name: clusterip-gw-controller
+        image: clusterip-gw-controller:latest
+        imagePullPolicy: IfNotPresent

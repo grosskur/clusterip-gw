@@ -1,0 +1,43 @@
+#!/usr/bin/env dotslash
+
+{
+  "name": "go",
+  "platforms": {
+    "macos-aarch64": {
+      "size": 64654450,
+      "hash": "blake3",
+      "digest": "59a9ee1923f24c7ceb1e52fe3bcf9f1aab79297e15d5925202753f812be06a05",
+      "format": "tar.gz",
+      "path": "go/bin/gofmt",
+      "providers": [
+        {
+          "url": "https://go.dev/dl/go1.26.1.darwin-arm64.tar.gz"
+        }
+      ]
+    },
+    "linux-aarch64": {
+      "size": 63690198,
+      "hash": "blake3",
+      "digest": "30f90fedf83275c0f04007dc1284db864edb39e4b1e0931b52f1e79055d71b4e",
+      "format": "tar.gz",
+      "path": "go/bin/gofmt",
+      "providers": [
+        {
+          "url": "https://go.dev/dl/go1.26.1.linux-arm64.tar.gz"
+        }
+      ]
+    },
+    "linux-x86_64": {
+      "size": 66791587,
+      "hash": "blake3",
+      "digest": "eb02280efee207386086878b4eab18b074438635cc448791cf874bf336a77bba",
+      "format": "tar.gz",
+      "path": "go/bin/gofmt",
+      "providers": [
+        {
+          "url": "https://go.dev/dl/go1.26.1.linux-amd64.tar.gz"
+        }
+      ]
+    }
+  }
+}

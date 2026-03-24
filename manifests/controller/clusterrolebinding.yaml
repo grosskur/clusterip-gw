@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: clusterip-gw-controller
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: clusterip-gw-controller
+subjects:
+- kind: ServiceAccount
+  name: clusterip-gw-controller
+  namespace: kube-system

@@ -1,0 +1,14 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: server
+  namespace: test-000
+spec:
+  gatewayClassName: clusterip-gw
+  listeners:
+  - name: tcp-80
+    port: 80
+    protocol: TCP
+  - name: tcp-81
+    port: 81
+    protocol: TCP

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: clusterip-gw-agent
+  namespace: kube-system
+  labels:
+    k8s-app: clusterip-gw-agent
+spec:
+  selector:
+    matchLabels:
+      k8s-app: clusterip-gw-agent
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        k8s-app: clusterip-gw-agent
+    spec:
+      priorityClassName: system-node-critical
+      hostNetwork: true
+      serviceAccountName: clusterip-gw-agent
+      nodeSelector:
+        kubernetes.io/os: linux
+      tolerations:
+      - operator: Exists
+      containers:
+      - name: clusterip-gw-agent
+        image: clusterip-gw-agent:latest
+        imagePullPolicy: IfNotPresent
+        args:
+        - --healthz-bind-address=0.0.0.0:11256
+        - --metrics-bind-address=127.0.0.1:11249
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: lib-modules
+          mountPath: /lib/modules
+          readOnly: true
+      volumes:
+      - name: lib-modules
+        hostPath:
+          path: /lib/modules

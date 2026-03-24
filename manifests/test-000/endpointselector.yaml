@@ -1,0 +1,9 @@
+apiVersion: gateway.networking.x-k8s.io/v1alpha1
+kind: XEndpointSelector
+metadata:
+  name: server
+  namespace: test-000
+spec:
+  selector:
+    matchLabels:
+      app: server

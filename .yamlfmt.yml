@@ -1,0 +1,6 @@
+formatter:
+  type: basic
+  indent: 2
+  indentless_arrays: true
+exclude:
+- manifests/crds

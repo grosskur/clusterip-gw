@@ -1,0 +1,61 @@
+#!/usr/bin/env dotslash
+
+{
+  "name": "golangci-lint",
+  "platforms": {
+    "macos-aarch64": {
+      "size": 14559125,
+      "hash": "blake3",
+      "digest": "2d7a5a8994affe3a04f59d6418fad8c9775688264bb7c9247753c754f4561c9d",
+      "format": "tar.gz",
+      "path": "golangci-lint-2.11.3-darwin-arm64/golangci-lint",
+      "providers": [
+        {
+          "url": "https://github.com/golangci/golangci-lint/releases/download/v2.11.3/golangci-lint-2.11.3-darwin-arm64.tar.gz"
+        },
+        {
+          "type": "github-release",
+          "repo": "https://github.com/golangci/golangci-lint",
+          "tag": "v2.11.3",
+          "name": "golangci-lint-2.11.3-darwin-arm64.tar.gz"
+        }
+      ]
+    },
+    "linux-aarch64": {
+      "size": 13877353,
+      "hash": "blake3",
+      "digest": "ca7f0f07c7949da408a470fad602b59404fb1c3f506222fd699b964fce8823b0",
+      "format": "tar.gz",
+      "path": "golangci-lint-2.11.3-linux-arm64/golangci-lint",
+      "providers": [
+        {
+          "url": "https://github.com/golangci/golangci-lint/releases/download/v2.11.3/golangci-lint-2.11.3-linux-arm64.tar.gz"
+        },
+        {
+          "type": "github-release",
+          "repo": "https://github.com/golangci/golangci-lint",
+          "tag": "v2.11.3",
+          "name": "golangci-lint-2.11.3-linux-arm64.tar.gz"
+        }
+      ]
+    },
+    "linux-x86_64": {
+      "size": 15252576,
+      "hash": "blake3",
+      "digest": "1cc9dc28f53244e3dd35a065752df8c05bd69f04791e163e5cc4adc3b3947975",
+      "format": "tar.gz",
+      "path": "golangci-lint-2.11.3-linux-amd64/golangci-lint",
+      "providers": [
+        {
+          "url": "https://github.com/golangci/golangci-lint/releases/download/v2.11.3/golangci-lint-2.11.3-linux-amd64.tar.gz"
+        },
+        {
+          "type": "github-release",
+          "repo": "https://github.com/golangci/golangci-lint",
+          "tag": "v2.11.3",
+          "name": "golangci-lint-2.11.3-linux-amd64.tar.gz"
+        }
+      ]
+    }
+  }
+}

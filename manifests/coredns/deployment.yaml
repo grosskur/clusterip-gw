@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clusterip-gw-coredns
+  namespace: kube-system
+  labels:
+    app: clusterip-gw-coredns
+    k8s-app: kube-dns
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: clusterip-gw-coredns
+  template:
+    metadata:
+      labels:
+        app: clusterip-gw-coredns
+        k8s-app: kube-dns
+    spec:
+      serviceAccountName: clusterip-gw-coredns
+      priorityClassName: system-cluster-critical
+      dnsPolicy: Default
+      nodeSelector:
+        kubernetes.io/os: linux
+      tolerations:
+      - key: CriticalAddonsOnly
+        operator: Exists
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/control-plane
+      containers:
+      - name: coredns
+        image: clusterip-gw-coredns
+        imagePullPolicy: IfNotPresent
+        args:
+        - -conf
+        - /etc/coredns/Corefile
+        ports:
+        - containerPort: 53
+          name: dns
+          protocol: UDP
+        - containerPort: 53
+          name: dns-tcp
+          protocol: TCP
+        - containerPort: 9153
+          name: metrics
+          protocol: TCP
+        - containerPort: 8080
+          name: liveness-probe
+          protocol: TCP
+        - containerPort: 8181
+          name: readiness-probe
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: liveness-probe
+            scheme: HTTP
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 5
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: readiness-probe
+            scheme: HTTP
+          periodSeconds: 5
+          timeoutSeconds: 1
+          successThreshold: 1
+          failureThreshold: 3
+        resources:
+          requests:
+            cpu: 100m
+            memory: 70Mi
+          limits:
+            memory: 170Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+          capabilities:
+            drop:
+            - ALL
+            add:
+            - NET_BIND_SERVICE
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/coredns
+          readOnly: true
+      volumes:
+      - name: config-volume
+        configMap:
+          name: clusterip-gw-coredns
+          items:
+          - key: Corefile
+            path: Corefile
