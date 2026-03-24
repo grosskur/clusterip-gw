@@ -1,6 +1,6 @@
 # clusterip-gw
 
-Experimental implementation of TCP-only
+Experimental implementation of
 [ClusterIP Gateway](https://docs.google.com/document/d/1N-C-dBHfyfwkKufknwKTDLAw4AP2BnJlnmx0dB-cC4U/edit?tab=t.0).
 
 * `clusterip-gw-controller` reconciles `Gateway`, `TCPRoute`, and
